@@ -36,6 +36,18 @@ test('from_roman is case-insensitive', () => {
   assert.equal(fromRoman('mcmxciv'), 1994);
 });
 
+test('from_roman trims surrounding whitespace', () => {
+  assert.equal(fromRoman('  IV  '), 4);
+  assert.equal(fromRoman('\tMCMXCIV\n'), 1994);
+});
+
+test('from_roman rejects non-string input', () => {
+  // @ts-expect-error testing runtime guard against bad input
+  assert.throws(() => fromRoman(undefined), /string/);
+  // @ts-expect-error testing runtime guard against bad input
+  assert.throws(() => fromRoman(123), /string/);
+});
+
 test('from_roman rejects malformed', () => {
   assert.throws(() => fromRoman('IIII'));
   assert.throws(() => fromRoman('VV'));

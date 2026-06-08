@@ -39,7 +39,8 @@ export function toRoman(n: number): string {
 const VALID = /^M{0,3}(CM|CD|D?C{0,3})(XC|XL|L?X{0,3})(IX|IV|V?I{0,3})$/;
 
 export function fromRoman(s: string): number {
-  const upper = s.toUpperCase();
+  if (typeof s !== 'string') throw new Error('roman must be a string');
+  const upper = s.trim().toUpperCase();
   if (!upper) throw new Error('empty input');
   if (!VALID.test(upper)) throw new Error('not a well-formed Roman numeral: ' + s);
   let total = 0;
